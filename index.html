@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>真心话测试器作者by李维棠</title>
     <style>
-        /* 样式保持不变 */
         * {
             margin: 0;
             padding: 0;
@@ -274,6 +273,51 @@
         .start-button:hover {
             background-color: #7a5cbf;
         }
+        
+        .pity-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .pity-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 80%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .pity-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff3366;
+        }
+        
+        .pity-button {
+            background-color: #8a6dce;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .pity-button:hover {
+            background-color: #7a5cbf;
+        }
     </style>
 </head>
 <body>
@@ -284,6 +328,15 @@
             <div class="author-name">李维棠</div>
             <p>欢迎使用这个真心话测试器awa</p>
             <button class="start-button" id="startButton">开始测试</button>
+        </div>
+    </div>
+    
+    <!-- 可怜弹窗 -->
+    <div class="pity-modal" id="pityModal" style="display: none;">
+        <div class="pity-content">
+            <h2 class="pity-title">那你好可怜哦</h2>
+            <p>没有喜欢的人也没关系，重新开始测试吧</p>
+            <button class="pity-button" id="pityRestartButton">重新开始</button>
         </div>
     </div>
     
@@ -317,11 +370,19 @@
         // 显示作者弹窗
         const authorModal = document.getElementById('authorModal');
         const startButton = document.getElementById('startButton');
+        const pityModal = document.getElementById('pityModal');
+        const pityRestartButton = document.getElementById('pityRestartButton');
         
         // 开始问卷按钮事件
         startButton.addEventListener('click', function() {
             authorModal.style.display = 'none';
             loadQuestion();
+        });
+        
+        // 重新开始按钮事件（可怜弹窗）
+        pityRestartButton.addEventListener('click', function() {
+            pityModal.style.display = 'none';
+            restartSurvey();
         });
         
         // 整蛊问题数据
@@ -503,8 +564,21 @@
             
             // 检查是否触发事件
             if (currentQuestion.event) {
+                // 第三个问题（索引2）特殊处理
+                if (currentQuestionIndex === 2) {
+                    // 如果用户回答"没有"
+                    if (userAnswer.toLowerCase() === "没有") {
+                        // 显示可怜弹窗
+                        pityModal.style.display = 'flex';
+                        return false;
+                    }
+                    // 如果用户回答"有"
+                    else if (userAnswer.toLowerCase() === "有") {
+                        currentQuestion.event.action();
+                    }
+                }
                 // 第四个问题（索引3）无论输入什么都会触发事件
-                if (currentQuestionIndex === 3) {
+                else if (currentQuestionIndex === 3) {
                     currentQuestion.event.action();
                 } 
                 // 第五个问题（索引4）有特殊处理
