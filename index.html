@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>真心话测试器作者by李维棠</title>
     <style>
+        /* 样式保持不变 */
         * {
             margin: 0;
             padding: 0;
@@ -288,7 +289,7 @@
     
     <div class="survey-container">
         <div class="status-bar">
-            <div class="time">23:15</div>
+            <div class="time" id="timeDisplay">23:15</div>
             <div class="status-icons">
                 <span></span>
                 <span></span>
@@ -406,9 +407,11 @@
                         createConfetti(100);
                     } 
                     else {
+                        // 安全处理用户输入
+                        const safeAnswer = escapeHtml(userAnswer);
                         document.querySelector('.survey-title').textContent = "❤️ 祝福 ❤️";
                         document.querySelector('.survey-title').classList.remove('rainbow-text');
-                        document.querySelector('.question-text').innerHTML = `祝你和${userAnswer}长长久久！<span class='heart'>❤️</span>`;
+                        document.querySelector('.question-text').innerHTML = `祝你和${safeAnswer}长长久久！<span class='heart'>❤️</span>`;
                         document.querySelector('.question-text').style.color = "#ff3366";
                         document.querySelector('.question-text').style.fontWeight = "bold";
                         document.body.style.backgroundColor = '#ffccf9';
@@ -425,6 +428,17 @@
         const progress = document.getElementById('progress');
         const nextButton = document.getElementById('nextButton');
         const surveyContainer = document.querySelector('.survey-container');
+        const timeDisplay = document.getElementById('timeDisplay');
+        
+        // HTML转义函数，防止XSS攻击
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
         
         // 创建彩色纸屑效果
         function createConfetti(count) {
@@ -446,6 +460,14 @@
                     confetti.remove();
                 }, 5000);
             }
+        }
+        
+        // 更新显示时间
+        function updateTimeDisplay() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            timeDisplay.textContent = `${hours}:${minutes}`;
         }
         
         // 初始化问题
@@ -483,11 +505,7 @@
             if (currentQuestion.event) {
                 // 第四个问题（索引3）无论输入什么都会触发事件
                 if (currentQuestionIndex === 3) {
-                    if (typeof currentQuestion.event === 'function') {
-                        currentQuestion.event.action();
-                    } else {
-                        currentQuestion.event.action();
-                    }
+                    currentQuestion.event.action();
                 } 
                 // 第五个问题（索引4）有特殊处理
                 else if (currentQuestionIndex === 4 && typeof currentQuestion.event === 'function') {
@@ -527,7 +545,7 @@
             
             surveyContainer.innerHTML = `
                 <div class="status-bar">
-                    <div class="time">23:15</div>
+                    <div class="time">${timeDisplay.textContent}</div>
                     <div class="status-icons">
                         <span></span>
                         <span></span>
@@ -573,15 +591,11 @@
             }
         });
         
-        // 模拟电量变化
-        setInterval(() => {
-            const timeElement = document.querySelector('.time');
-            if (timeElement) {
-                const now = new Date();
-                timeElement.textContent = now.getHours().toString().padStart(2, '0') + ':' + 
-                                         now.getMinutes().toString().padStart(2, '0');
-            }
-        }, 60000);
+        // 初始化时间显示
+        updateTimeDisplay();
+        
+        // 每分钟更新时间
+        setInterval(updateTimeDisplay, 60000);
     </script>
 </body>
 </html>
