@@ -3,684 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人网站 | GitHub Pages</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>趣味问卷调查</title>
     <style>
-        /* 基础样式 */
-        :root {
-            --primary: #4e54c8;
-            --secondary: #8f94fb;
-            --accent: #ff6b6b;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --gray: #6c757d;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        html {
-            scroll-behavior: smooth;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
         }
         
         body {
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: #f9f9f9;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        section {
-            padding: 80px 0;
-        }
-        
-        h1, h2, h3, h4 {
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-        
-        h1 {
-            font-size: 3rem;
-        }
-        
-        h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 2px;
-        }
-        
-        p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            color: var(--gray);
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        /* GitHub Pages 指南部分 */
-        .github-guide {
-            background-color: #f8f9fa;
-            padding: 60px 0;
-            border-bottom: 1px solid #eaeaea;
-        }
-        
-        .guide-steps {
+            background-color: #f0e6ff;
+            color: #333;
             display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
             justify-content: center;
-        }
-        
-        .step-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            padding: 30px;
-            width: 100%;
-            max-width: 350px;
-            transition: transform 0.3s;
-        }
-        
-        .step-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .step-number {
-            display: flex;
             align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            font-weight: bold;
-            margin-bottom: 20px;
+            min-height: 100vh;
+            padding: 20px;
         }
         
-        .step-card h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .code-block {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            margin: 15px 0;
-            overflow-x: auto;
-        }
-        
-        /* 导航栏 */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
+        .survey-container {
             width: 100%;
-            top: 0;
-            z-index: 1000;
+            max-width: 400px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
         
-        nav {
+        .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 10px 15px;
+            background-color: #f8f4ff;
+            border-bottom: 1px solid #eae0ff;
         }
         
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
+        .time {
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .status-icons {
             display: flex;
-            align-items: center;
+            gap: 5px;
         }
         
-        .logo i {
-            margin-right: 10px;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* 欢迎区域 */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            text-align: center;
-            margin-top: 70px;
-        }
-        
-        .hero-content h1 {
-            margin-bottom: 20px;
-            font-size: 3.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero-content p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-        
-        /* 关于我区域 */
-        .about {
-            background-color: white;
-        }
-        
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-        
-        .about-text {
-            flex: 1;
-        }
-        
-        .about-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .about-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        /* 技能区域 */
-        .skills {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-        
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .skill-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-        
-        .skill-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .skill-card i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        /* 项目区域 */
-        .projects {
-            background-color: white;
-        }
-        
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .project-card {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .project-image {
-            height: 200px;
-            background-color: #ddd;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .project-info {
-            padding: 20px;
-            background: white;
-        }
-        
-        /* 联系区域 */
-        .contact {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-        
-        .contact-content {
-            display: flex;
-            gap: 50px;
-        }
-        
-        .contact-info {
-            flex: 1;
-        }
-        
-        .contact-form {
-            flex: 1;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* 页脚 */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
+        .status-icons span {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background-color: #333;
             border-radius: 50%;
-            margin: 0 10px;
+        }
+        
+        .survey-title {
+            text-align: center;
+            padding: 20px 15px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #5a4b81;
+        }
+        
+        .question-area {
+            padding: 0 25px 25px;
+        }
+        
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+            line-height: 1.5;
+            text-align: center;
+        }
+        
+        .answer-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            outline: none;
+            transition: border-color 0.3s;
+            text-align: center;
+        }
+        
+        .answer-input:focus {
+            border-color: #9b87d4;
+        }
+        
+        .answer-input::placeholder {
+            color: #aaa;
+        }
+        
+        .button-area {
+            display: flex;
+            justify-content: center;
+            padding: 0 25px 25px;
+            position: relative;
+        }
+        
+        .next-button {
+            background-color: #8a6dce;
             color: white;
-            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(138, 109, 206, 0.3);
         }
         
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
+        .next-button:hover {
+            background-color: #7a5cbf;
+            transform: translateY(-2px);
         }
         
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            .about-content, .contact-content {
-                flex-direction: column;
-            }
-            
-            .about-image {
-                order: -1;
-            }
-            
-            .guide-steps {
-                flex-direction: column;
-                align-items: center;
-            }
+        .next-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
         }
         
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background: white;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 50px;
-                transition: all 0.3s;
-            }
-            
-            .nav-links.active {
-                left: 0;
-            }
-            
-            .nav-links li {
-                margin: 15px 0;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
+        .progress {
+            text-align: center;
+            padding: 10px 0 20px;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .completion-page {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .completion-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #5a4b81;
+        }
+        
+        .restart-button {
+            background-color: #8a6dce;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .restart-button:hover {
+            background-color: #7a5cbf;
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo"><i class="fab fa-github"></i>我的GitHub网站</a>
-                <div class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#github-guide">GitHub指南</a></li>
-                    <li><a href="#about">关于我</a></li>
-                    <li><a href="#skills">技能</a></li>
-                    <li><a href="#projects">项目</a></li>
-                    <li><a href="#contact">联系</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- 欢迎区域 -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>欢迎来到我的GitHub网站</h1>
-                <p>使用GitHub Pages免费部署您的个人网站，展示您的项目和技能</p>
-                <a href="#github-guide" class="btn">开始使用GitHub Pages</a>
+    <div class="survey-container">
+        <div class="status-bar">
+            <div class="time">23:15</div>
+            <div class="status-icons">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
-    </section>
-
-    <!-- GitHub Pages 指南 -->
-    <section class="github-guide" id="github-guide">
-        <div class="container">
-            <h2>GitHub Pages 部署指南</h2>
-            <div class="guide-steps">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3>创建GitHub仓库</h3>
-                    <p>登录GitHub账号，创建一个新仓库</p>
-                    <p>仓库名必须为：<strong>你的用户名.github.io</strong></p>
-                    <p>设置为公开仓库，并初始化README文件</p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3>上传网站文件</h3>
-                    <p>将您的网站文件上传到仓库中</p>
-                    <p>确保包含一个<strong>index.html</strong>文件作为首页</p>
-                    <div class="code-block">
-                        git add .<br>
-                        git commit -m "初始化网站"<br>
-                        git push origin main
-                    </div>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3>启用GitHub Pages</h3>
-                    <p>进入仓库设置 > Pages</p>
-                <p>选择分支（通常为main或master）</p>
-                    <p>保存设置，等待部署完成</p>
-                    <p>访问：<strong>https://你的用户名.github.io</strong></p>
-                </div>
-            </div>
+        
+        <h1 class="survey-title">趣味问卷调查</h1>
+        
+        <div class="question-area">
+            <div class="question-text" id="questionText">你最喜欢的颜色是什么？</div>
+            <input type="text" class="answer-input" id="answerInput" placeholder="请输入你的答案...">
         </div>
-    </section>
-
-    <!-- 关于我区域 -->
-    <section class="about" id="about">
-        <div class="container">
-            <h2>关于我</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>你好！我是李四，一名全栈开发者和UI/UX设计师，拥有5年的行业经验。我热衷于通过代码将创意变为现实。</p>
-                    <p>我擅长使用现代技术栈创建响应式网站和Web应用。我的目标是打造既美观又实用的数字解决方案，为用户提供卓越的体验。</p>
-                    <p>在业余时间，我喜欢学习新技术、摄影和旅行。我相信终身学习是保持创造力的关键。</p>
-                    <a href="#contact" class="btn">联系我</a>
-                </div>
-                <div class="about-image">
-                    <!-- 这里可以使用实际图片 -->
-                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #8f94fb 0%, #4e54c8 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                        <i class="fas fa-user" style="font-size: 5rem;"></i>
-                    </div>
-                </div>
-            </div>
+        
+        <div class="progress" id="progress">问题 1 / 5</div>
+        
+        <div class="button-area">
+            <button class="next-button" id="nextButton" disabled>下一个</button>
         </div>
-    </section>
-
-    <!-- 技能区域 -->
-    <section class="skills" id="skills">
-        <div class="container">
-            <h2>我的技能</h2>
-            <div class="skills-container">
-                <div class="skill-card">
-                    <i class="fas fa-code"></i>
-                    <h3>前端开发</h3>
-                    <p>精通HTML5, CSS3, JavaScript, React, Vue.js等前端技术，能够创建响应式和交互式的用户界面。</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-server"></i>
-                    <h3>后端开发</h3>
-                    <p>熟悉Node.js, Python, PHP等后端技术，能够构建高效、安全的服务器端应用程序和API。</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-palette"></i>
-                    <h3>UI/UX设计</h3>
-                    <p>具备良好的设计感，能够使用Figma, Adobe XD等工具创建直观、美观的用户界面和体验。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 项目区域 -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <h2>我的项目</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);"></div>
-                    <div class="project-info">
-                        <h3>电子商务平台</h3>
-                        <p>一个全功能的电子商务网站，包含用户认证、产品展示、购物车和支付功能。</p>
-                        <a href="#" class="btn" style="margin-top: 15px; padding: 8px 20px;">查看详情</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);"></div>
-                    <div class="project-info">
-                        <h3>任务管理应用</h3>
-                        <p>一个直观的任务管理工具，帮助团队协作、跟踪进度和提高工作效率。</p>
-                        <a href="#" class="btn" style="margin-top: 15px; padding: 8px 20px;">查看详情</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
-                    <div class="project-info">
-                        <h3>个人博客系统</h3>
-                        <p>一个现代化的博客平台，支持Markdown编辑、分类管理和评论系统。</p>
-                        <a href="#" class="btn" style="margin-top: 15px; padding: 8px 20px;">查看详情</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 联系区域 -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2>联系我</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>获取联系</h3>
-                    <p>如果您有任何问题或合作机会，请随时与我联系。我通常会在24小时内回复。</p>
-                    <div style="margin-top: 30px;">
-                        <p><i class="fas fa-envelope"></i> example@email.com</p>
-                        <p><i class="fas fa-phone"></i> +86 123 4567 8900</p>
-                        <p><i class="fas fa-map-marker-alt"></i> 北京市朝阳区</p>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">姓名</label>
-                            <input type="text" id="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">邮箱</label>
-                            <input type="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">消息</label>
-                            <textarea id="message" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">发送消息</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <p>关注我的社交媒体</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-weibo"></i></a>
-                <a href="#"><i class="fab fa-weixin"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <p>&copy; 2025 我的GitHub网站. 保留所有权利.</p>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        // 移动端菜单切换
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('navLinks').classList.toggle('active');
+        // 整蛊问题数据
+        const questions = [
+            {
+                question: "你最喜欢的颜色是什么？",
+                type: "subjective" // 主观题
+            },
+            {
+                question: "1+1等于几？",
+                correctAnswer: "2",
+                type: "objective" // 客观题
+            },
+            {
+                question: "描述一下你最好的朋友",
+                type: "subjective" // 主观题
+            },
+            {
+                question: "太阳系有多少颗行星？",
+                correctAnswer: "8",
+                type: "objective" // 客观题
+            },
+            {
+                question: "你最喜欢的电影是什么？",
+                type: "subjective" // 主观题
+            }
+        ];
+        
+        let currentQuestionIndex = 0;
+        
+        const questionText = document.getElementById('questionText');
+        const answerInput = document.getElementById('answerInput');
+        const progress = document.getElementById('progress');
+        const nextButton = document.getElementById('nextButton');
+        const surveyContainer = document.querySelector('.survey-container');
+        
+        // 初始化问题
+        function loadQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionText.textContent = currentQuestion.question;
+            answerInput.value = "";
+            answerInput.focus();
+            
+            progress.textContent = `问题 ${currentQuestionIndex + 1} / ${questions.length}`;
+            nextButton.disabled = true;
+            
+            if (currentQuestion.type === "subjective") {
+                nextButton.disabled = false;
+            }
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                nextButton.textContent = "完成";
+            } else {
+                nextButton.textContent = "下一个";
+            }
+        }
+        
+        // 验证答案
+        function checkAnswer() {
+            const userAnswer = answerInput.value.trim();
+            const currentQuestion = questions[currentQuestionIndex];
+            
+            if (userAnswer === "") {
+                nextButton.disabled = true;
+                return false;
+            }
+            
+            if (currentQuestion.type === "subjective") {
+                nextButton.disabled = false;
+                return true;
+            }
+            
+            if (userAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
+                nextButton.disabled = false;
+                return true;
+            } else {
+                nextButton.disabled = true;
+                return false;
+            }
+        }
+        
+        // 显示完成页面
+        function showCompletion() {
+            const completionHTML = `
+                <div class="completion-page">
+                    <h2 class="completion-title">问卷调查完成</h2>
+                    <button class="restart-button" id="restartButton">重新开始</button>
+                </div>
+            `;
+            
+            surveyContainer.innerHTML = `
+                <div class="status-bar">
+                    <div class="time">23:15</div>
+                    <div class="status-icons">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <h1 class="survey-title">趣味问卷调查</h1>
+                ${completionHTML}
+            `;
+            
+            document.getElementById('restartButton').addEventListener('click', restartSurvey);
+        }
+        
+        // 重新开始问卷调查
+        function restartSurvey() {
+            currentQuestionIndex = 0;
+            location.reload();
+        }
+        
+        // 下一个问题
+        function nextQuestion() {
+            if (currentQuestionIndex === questions.length - 1) {
+                showCompletion();
+                return;
+            }
+            
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+        
+        // 事件监听
+        nextButton.addEventListener('click', nextQuestion);
+        
+        answerInput.addEventListener('input', function() {
+            checkAnswer();
         });
         
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                    
-                    // 移动端点击后关闭菜单
-                    if(window.innerWidth <= 768) {
-                        document.getElementById('navLinks').classList.remove('active');
-                    }
-                }
-            });
+        answerInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !nextButton.disabled) {
+                nextQuestion();
+            }
         });
         
-        // 表单提交处理
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('感谢您的留言！我会尽快回复您。');
-            this.reset();
-        });
+        // 初始化
+        loadQuestion();
+        
+        // 模拟电量变化
+        setInterval(() => {
+            const timeElement = document.querySelector('.time');
+            if (timeElement) {
+                const now = new Date();
+                timeElement.textContent = now.getHours().toString().padStart(2, '0') + ':' + 
+                                         now.getMinutes().toString().padStart(2, '0');
+            }
+        }, 60000);
     </script>
 </body>
 </html>
