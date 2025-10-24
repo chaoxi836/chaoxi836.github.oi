@@ -233,6 +233,14 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .author-modal.active {
+            opacity: 1;
+            visibility: visible;
         }
         
         .author-content {
@@ -242,6 +250,12 @@
             text-align: center;
             max-width: 80%;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s;
+        }
+        
+        .author-modal.active .author-content {
+            transform: scale(1);
         }
         
         .author-title {
@@ -285,6 +299,14 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .pity-modal.active {
+            opacity: 1;
+            visibility: visible;
         }
         
         .pity-content {
@@ -294,6 +316,12 @@
             text-align: center;
             max-width: 80%;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s;
+        }
+        
+        .pity-modal.active .pity-content {
+            transform: scale(1);
         }
         
         .pity-title {
@@ -318,6 +346,123 @@
         .pity-button:hover {
             background-color: #7a5cbf;
         }
+        
+        /* 新增彩蛋弹窗样式 */
+        .egg-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .egg-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .egg-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 80%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s;
+        }
+        
+        .egg-modal.active .egg-content {
+            transform: scale(1);
+        }
+        
+        .egg-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #5a4b81;
+        }
+        
+        .egg-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .egg-button {
+            background-color: #8a6dce;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .egg-button:hover {
+            background-color: #7a5cbf;
+        }
+        
+        /* 新增动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .heart-beat {
+            animation: heartBeat 1s infinite;
+        }
+        
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.2); }
+            60% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -332,11 +477,74 @@
     </div>
     
     <!-- 可怜弹窗 -->
-    <div class="pity-modal" id="pityModal" style="display: none;">
+    <div class="pity-modal" id="pityModal">
         <div class="pity-content">
             <h2 class="pity-title">那你好可怜哦</h2>
             <p>没有喜欢的人也没关系，重新开始测试吧</p>
             <button class="pity-button" id="pityRestartButton">重新开始</button>
+        </div>
+    </div>
+    
+    <!-- 彩虹彩蛋弹窗 -->
+    <div class="egg-modal" id="rainbowModal">
+        <div class="egg-content">
+            <h2 class="egg-title">🌈 彩虹主题 🌈</h2>
+            <p class="egg-text">原来你喜欢这个颜色啊awa！</p>
+            <button class="egg-button" id="rainbowCloseButton">继续</button>
+        </div>
+    </div>
+    
+    <!-- 告白气球彩蛋弹窗 -->
+    <div class="egg-modal" id="balloonModal">
+        <div class="egg-content">
+            <h2 class="egg-title">🎈 告白气球 🎈</h2>
+            <p class="egg-text">你最喜欢的歌是告白气球！</p>
+            <button class="egg-button" id="balloonCloseButton">继续</button>
+        </div>
+    </div>
+    
+    <!-- 承认喜欢彩蛋弹窗 -->
+    <div class="egg-modal" id="likeModal">
+        <div class="egg-content">
+            <h2 class="egg-title">❤️ 哇！你终于承认了！ ❤️</h2>
+            <p class="egg-text">你有喜欢的人！让我猜猜看是谁呢？</p>
+            <button class="egg-button" id="likeCloseButton">继续</button>
+        </div>
+    </div>
+    
+    <!-- 心动时刻彩蛋弹窗 -->
+    <div class="egg-modal" id="heartbeatModal">
+        <div class="egg-content">
+            <h2 class="egg-title">💓 原来如此 💓</h2>
+            <p class="egg-text">无论Ta是怎样的人，心动都是最美的！</p>
+            <button class="egg-button" id="heartbeatCloseButton">继续</button>
+        </div>
+    </div>
+    
+    <!-- 表白成功彩蛋弹窗 -->
+    <div class="egg-modal" id="successModal">
+        <div class="egg-content">
+            <h2 class="egg-title">❤️ 恭喜你表白成功！ ❤️</h2>
+            <p class="egg-text">我也喜欢你哦，你说对吧，尚？</p>
+            <button class="egg-button" id="successCloseButton">完成</button>
+        </div>
+    </div>
+    
+    <!-- 水仙宝宝彩蛋弹窗 -->
+    <div class="egg-modal" id="narcissusModal">
+        <div class="egg-content">
+            <h2 class="egg-title">💖 水仙宝宝 💖</h2>
+            <p class="egg-text">爱自己是最重要的！</p>
+            <button class="egg-button" id="narcissusCloseButton">完成</button>
+        </div>
+    </div>
+    
+    <!-- 祝福彩蛋弹窗 -->
+    <div class="egg-modal" id="blessingModal">
+        <div class="egg-content">
+            <h2 class="egg-title">💞 祝你们长长久久 💞</h2>
+            <p class="egg-text" id="blessingText">祝你和XXX长长久久！</p>
+            <button class="egg-button" id="blessingCloseButton">完成</button>
         </div>
     </div>
     
@@ -369,20 +577,76 @@
     <script>
         // 显示作者弹窗
         const authorModal = document.getElementById('authorModal');
+        authorModal.classList.add('active');
+        
         const startButton = document.getElementById('startButton');
         const pityModal = document.getElementById('pityModal');
         const pityRestartButton = document.getElementById('pityRestartButton');
         
+        // 彩蛋弹窗
+        const rainbowModal = document.getElementById('rainbowModal');
+        const balloonModal = document.getElementById('balloonModal');
+        const likeModal = document.getElementById('likeModal');
+        const heartbeatModal = document.getElementById('heartbeatModal');
+        const successModal = document.getElementById('successModal');
+        const narcissusModal = document.getElementById('narcissusModal');
+        const blessingModal = document.getElementById('blessingModal');
+        
+        // 彩蛋关闭按钮
+        const rainbowCloseButton = document.getElementById('rainbowCloseButton');
+        const balloonCloseButton = document.getElementById('balloonCloseButton');
+        const likeCloseButton = document.getElementById('likeCloseButton');
+        const heartbeatCloseButton = document.getElementById('heartbeatCloseButton');
+        const successCloseButton = document.getElementById('successCloseButton');
+        const narcissusCloseButton = document.getElementById('narcissusCloseButton');
+        const blessingCloseButton = document.getElementById('blessingCloseButton');
+        
         // 开始问卷按钮事件
         startButton.addEventListener('click', function() {
-            authorModal.style.display = 'none';
+            authorModal.classList.remove('active');
             loadQuestion();
         });
         
         // 重新开始按钮事件（可怜弹窗）
         pityRestartButton.addEventListener('click', function() {
-            pityModal.style.display = 'none';
+            pityModal.classList.remove('active');
             restartSurvey();
+        });
+        
+        // 彩蛋关闭按钮事件
+        rainbowCloseButton.addEventListener('click', function() {
+            rainbowModal.classList.remove('active');
+            nextQuestion();
+        });
+        
+        balloonCloseButton.addEventListener('click', function() {
+            balloonModal.classList.remove('active');
+            nextQuestion();
+        });
+        
+        likeCloseButton.addEventListener('click', function() {
+            likeModal.classList.remove('active');
+            nextQuestion();
+        });
+        
+        heartbeatCloseButton.addEventListener('click', function() {
+            heartbeatModal.classList.remove('active');
+            nextQuestion();
+        });
+        
+        successCloseButton.addEventListener('click', function() {
+            successModal.classList.remove('active');
+            showCompletion();
+        });
+        
+        narcissusCloseButton.addEventListener('click', function() {
+            narcissusModal.classList.remove('active');
+            showCompletion();
+        });
+        
+        blessingCloseButton.addEventListener('click', function() {
+            blessingModal.classList.remove('active');
+            showCompletion();
         });
         
         // 整蛊问题数据
@@ -393,6 +657,10 @@
                 event: {
                     trigger: "彩虹",
                     action: function() {
+                        // 显示彩虹彩蛋弹窗
+                        rainbowModal.classList.add('active');
+                        
+                        // 添加动画效果
                         document.querySelector('.survey-title').classList.add('rainbow-text');
                         document.body.style.backgroundColor = '#ffccf9';
                         createConfetti(50);
@@ -405,6 +673,10 @@
                 event: {
                     trigger: "告白气球",
                     action: function() {
+                        // 显示告白气球彩蛋弹窗
+                        balloonModal.classList.add('active');
+                        
+                        // 添加动画效果
                         document.querySelector('.survey-title').textContent = "🎈 告白气球 🎈";
                         document.querySelector('.survey-title').style.fontSize = "24px";
                         document.body.style.backgroundColor = '#ffd8d8';
@@ -418,6 +690,10 @@
                 event: {
                     trigger: "有",
                     action: function() {
+                        // 显示承认喜欢彩蛋弹窗
+                        likeModal.classList.add('active');
+                        
+                        // 添加动画效果
                         document.querySelector('.question-text').textContent = "哇！你终于承认了！";
                         document.querySelector('.question-text').style.color = "#ff3366";
                         document.querySelector('.question-text').style.fontWeight = "bold";
@@ -431,6 +707,10 @@
                 event: {
                     trigger: "任何输入", // 无论输入什么都会触发
                     action: function() {
+                        // 显示心动时刻彩蛋弹窗
+                        heartbeatModal.classList.add('active');
+                        
+                        // 添加动画效果
                         document.querySelector('.survey-container').classList.add('shake');
                         document.querySelector('.survey-title').textContent = "❤️ 心动时刻 ❤️";
                         document.querySelector('.survey-title').style.color = "#ff3366";
@@ -450,6 +730,10 @@
                     const lowerAnswer = userAnswer.toLowerCase();
                     
                     if (lowerAnswer === "李维棠") {
+                        // 显示表白成功彩蛋弹窗
+                        successModal.classList.add('active');
+                        
+                        // 添加动画效果
                         document.querySelector('.survey-title').textContent = "❤️ 恭喜你表白成功！ ❤️";
                         document.querySelector('.survey-title').classList.add('rainbow-text');
                         document.querySelector('.question-text').innerHTML = "我也喜欢你哦，你说对吧，尚？<span class='heart'>❤️</span>";
@@ -459,6 +743,10 @@
                         createConfetti(200);
                     } 
                     else if (lowerAnswer === "我" || lowerAnswer === "自己") {
+                        // 显示水仙宝宝彩蛋弹窗
+                        narcissusModal.classList.add('active');
+                        
+                        // 添加动画效果
                         document.querySelector('.survey-title').textContent = "❤️ 水仙宝宝 ❤️";
                         document.querySelector('.survey-title').classList.add('rainbow-text');
                         document.querySelector('.question-text').innerHTML = "爱自己是最重要的！<span class='heart'>❤️</span>";
@@ -470,7 +758,13 @@
                     else {
                         // 安全处理用户输入
                         const safeAnswer = escapeHtml(userAnswer);
-                        document.querySelector('.survey-title').textContent = "❤️ 祝福 ❤️";
+                        
+                        // 显示祝福彩蛋弹窗
+                        document.getElementById('blessingText').textContent = `祝你和${safeAnswer}长长久久！`;
+                        blessingModal.classList.add('active');
+                        
+                        // 添加动画效果
+                        document.querySelector('.survey-title').textContent = "❤️ 祝你们长长久久 ❤️";
                         document.querySelector('.survey-title').classList.remove('rainbow-text');
                         document.querySelector('.question-text').innerHTML = `祝你和${safeAnswer}长长久久！<span class='heart'>❤️</span>`;
                         document.querySelector('.question-text').style.color = "#ff3366";
@@ -542,7 +836,7 @@
             nextButton.disabled = true;
             
             if (currentQuestion.type === "subjective") {
-                nextButton.disabled = false;
+                nextButton.disabled = true; // 初始禁用，有输入时才启用
             }
             
             if (currentQuestionIndex === questions.length - 1) {
@@ -569,7 +863,7 @@
                     // 如果用户回答"没有"
                     if (userAnswer.toLowerCase() === "没有") {
                         // 显示可怜弹窗
-                        pityModal.style.display = 'flex';
+                        pityModal.classList.add('active');
                         return false;
                     }
                     // 如果用户回答"有"
@@ -591,20 +885,7 @@
                 }
             }
             
-            if (currentQuestion.type === "subjective") {
-                nextButton.disabled = false;
-                return true;
-            }
-            
-            // 客观题需要验证答案
-            if (currentQuestion.correctAnswer && 
-                userAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase()) {
-                nextButton.disabled = false;
-                return true;
-            } else {
-                nextButton.disabled = true;
-                return false;
-            }
+            return true;
         }
         
         // 显示完成页面
@@ -643,11 +924,23 @@
         
         // 下一个问题
         function nextQuestion() {
+            const userAnswer = answerInput.value.trim();
+            
+            // 检查答案并触发彩蛋
+            const shouldProceed = checkAnswer();
+            
+            // 如果用户回答"没有"（第三个问题），则不继续
+            if (!shouldProceed) {
+                return;
+            }
+            
+            // 如果是最后一个问题，则显示完成页面
             if (currentQuestionIndex === questions.length - 1) {
                 showCompletion();
                 return;
             }
             
+            // 否则进入下一题
             currentQuestionIndex++;
             loadQuestion();
         }
@@ -655,10 +948,12 @@
         // 事件监听
         nextButton.addEventListener('click', nextQuestion);
         
+        // 输入时启用/禁用按钮
         answerInput.addEventListener('input', function() {
-            checkAnswer();
+            nextButton.disabled = this.value.trim() === '';
         });
         
+        // 回车键提交
         answerInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && !nextButton.disabled) {
                 nextQuestion();
